@@ -1,0 +1,17 @@
++ 创建一个新的项目并推送到远程库
+```
+echo "# mynote" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M master
+git remote add origin https://github.com/buobao/mynote.git
+git push -u origin master
+```
+
++ 将已有库推送到远程库
+```
+git remote add origin https://github.com/buobao/mynote.git
+git branch -M master
+git push -u origin master
+```
