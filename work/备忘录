@@ -1,0 +1,96 @@
+环境配置，androidstudio、nodepad++、git等。
+测试账号：
+S100426
+雅诗兰黛泉州世界城专柜
+泉州世界城
+Blazer 联营
+
+S100425
+雅诗兰黛泉州世界城专柜
+泉州世界城
+Blazer 自营
+
+S100365
+100059
+100061
+S100374
+
+ bgvpn10/SSyy1996!
+hx_gj Sce-re2021@rsc
+
+绑定pos
+https://bgerpuat.sce-re.com/#/home	
+admin
+123QWEasd
+http://erp.uat1.rscloud.com/ std admin     0709jyx用  0825薛蕾用  100099 00ZDc7
+http://sce-re-sypos.dev.rscloud.com/#/ dev
+http://sypostest.sce-re.com/#/  stg
+https://sypos.sce-re.com/#/    zhangfan  scePAY123
+http://sce-re-sypos.uat1.rscloud.com/#/  uat
+
+http://erp.uat1.rscloud.com/ admin zendai123
+
+https://ivtsit2.sce-re.com/#/login  zhangfan/scePAY123
+
+https://bgerpsit2.sce-re.com/#/home
+https://bgerpuat.sce-re.com/#/home
+
+PSEjab
+
+#git 地址
+http://code.corp.rs.com/dashboard/projects
+
+8.30
+修复了两个自营线上的bug
+退款付款确认接口调通，但是后端需要接入支付宝支付接口。
+3348900012219
+S100365 uat
+	
+100056 debug
+
+S100367
+	
+100422
+s100456
+
+S100471
+
+
+adb install -r
+adb logcat
+adb shell logcat -v time > 文件路径
+
+连接无线网设备:
+adb tcpip 5555
+adb connect 设备ip
+
+
+空格：&#160;
+窄空格：&#8201;
+半个中文字:&#8194;
+一个中文字:&#8195;
+
+支付渠道:
+"channelType":"UNION_PAY"	//银联支付(云闪付)
+"channelType":"ALLIN_PAY"   //联通支付
+
+
+
+900012593
+900187092
+
+会员码
+SP001000935
+991000000000489
+317c5f0c-5841-482b-afee-b57faaffb3ad
+http://sce-re-sypos.uat1.rscloud.com/api-sce-b/pay-b/member/memberCode?customerId=1000000788
+
+customerId=1000000788
+"memberCode": "16cec004-7895-43f3-8353-cede2fef3b61",
+    "memberPhone": "13590283182",
+
+01257655441
+
+SelectGoodActivity-》UnionSellConfirmActivity-》UnionOrderConfirmActivity-》UnionCashierActivity-》UnionSellResultActivity
+
+087896
