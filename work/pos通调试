@@ -1,0 +1,31 @@
+重打印：
+{"actualPayAmount":"","amt":"0.01","authNo":"000000","batchNo":"000001","cardAcquirerId":"","cardIssuer":"","cardIssuerId":"","cardNo":"0000000000000000",
+"cardOrg":"","channelID":"0002","date":"2021/11/20","extBillNo":"","extOrderNo":"","isReprint":true,
+"memInfo":"{\"userNo\":\"leb***@163.com\",\"transNo\":\"\",\"orderNo\":\"20211120162630020855206359\",\"discountInfo\":\"支付宝钱包支付0.01元\",
+\"marketDiscountInfo\":\"\",\"openId\":\"2088912019799456\",\"channelName\":\"支付宝钱包\"}","merchantName":"上海中骏商业管理有限公司",
+"merchantNo":"898323173921258","model":"APOS A8","operNo":"001","orderStatus":"1","payNo":"283978878411425907","refNo":"20855206359W",
+"resCode":"00","resDesc":"交易成功","serviceNo":"95534","settleDate":"1120","terminalNo":"A0451508","time":"16:26:32","traceNo":"400180","transChnName":"POS通消费",
+"transEngName":"POST SALE","transName":"POS通消费","vendor":"LANDI","version":"32033934"}
+
+正常支付：
+{"actualPayAmount":"","amt":"0.01","authNo":"000000","batchNo":"000001","cardAcquirerId":"48020000","cardIssuer":"银联商务","cardIssuerId":"48020000",
+"cardNo":"0000000000000000","cardOrg":"CUP","channelID":"0002","date":"2021/11/20","extBillNo":"","extOrderNo":"",
+"memInfo":"{"userNo":"","transNo":"","orderNo":"20211120144812020853698887","discountInfo":"","marketDiscountInfo":"","openId":"",
+"channelName":"支付宝钱包"}","merchantName":"上海中骏商业管理有限公司","merchantNo":"898323173921258",
+"model":"APOS A8","oldTraceNo":"400178","operNo":"001","orderStatus":"3","refNo":"20853698887W",
+"resCode":"00","resDesc":"交易成功","serviceNo":"95534","settleDate":"1120","terminalNo":"A0451508",
+"time":"14:55:05","traceNo":"400179","transChnName":"POS通撤销","transEngName":"POST REVOKE","transName":
+"POS通撤销","vendor":"LANDI","version":"32033934"}
+
+
+{"mallCode":"001","notifyMessage":"{\"appName\":\"POS 通\",\"resultCode\":\"0\",\"resultMsg\":\"接口调用成功\",\"transData\":
+\"{\\\"resCode\\\":\\\"1001\\\",\\\"resDesc\\\":\\\"参数不正确（TSS），请联系客户经理重置参数。\\\"}\",\"transId\":\"POS通\"}",
+"orderNo":"S2111201708306190020008","tradeSeqNo":"2111201708330460020009"}
+
+
+{"appName":"POS 通","transId":"POS通","resultCode":"0","resultMsg":"接口调用成功","transData":{"resCode":"1001","resDesc":"参数不正确（TSS），请联系客户经理重置参数。"}}
+
+
+{"amt":"1","extOrderNo":"S2111201720079340020017","isNeedPrintReceipt":true,"tradeType":"useScan","appId":"880ff13a339749dda54efa40cfef3887"}
+
+{"amt":"1","extOrderNo":"1234567890","isNeedPrintReceipt":false,"tradeType":"useScan","appId":"880ff13a339749dda54efa40cfef3887"}

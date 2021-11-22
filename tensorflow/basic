@@ -10,5 +10,7 @@
 2.tensorflow安装
 cmd执行 pip install tensorflow
 下载慢可以使用镜像 pip3 install numpy -i https://pypi.tuna.tsinghua.edu.cn/simple
+再安装 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow-cpu
 ```
 
++ 教程地址:https://www.tensorflow.org/tutorials/keras/classification
