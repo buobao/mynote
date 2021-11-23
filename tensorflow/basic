@@ -14,3 +14,46 @@ cmd执行 pip install tensorflow
 ```
 
 + 教程地址:https://www.tensorflow.org/tutorials/keras/classification
+
++ ipython notebook无法使用？
+```python
+1.运行安装： pip install jupyter -i  https://pypi.tuna.tsinghua.edu.cn/simple
+2.运行：jupyter notebook
+```
+
++ anaconda安装
+```
+1.下载：https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/   （清华大学开源软件镜像地址）
+2.使用conda命令更新canda
+    conda update conda
+    conda update anaconda 
+3.使用conda list查看已安装的包:
+    canda list 
+    ipython中使用
+    !conda list
+4.可以创建一个独立的python环境，比如安装的是python3，可以创建一个python2的环境来运行python2代码:
+    conda create -n py27 python=2.7
+    然后输入命令：activate py27 或者 source activate py27(mac下)  进入模拟命令行 输入：python 进d入python2环境
+5.可以使用conda安装包,如：
+    conda install numpy=1.8.1 
+6.命令行输入：spyder  使用conda默认编辑器
+```
+
++ python3中没有urllib2的问题
+```
+1.分别安装urllib.request和urllib.error (已默认安装，无需手动安装，手动安装也会报一个找不到包的错误)
+2.使用的时候也需要分别引入:
+    import urllib.request
+    import urllib.error
+```
+
++ ipython magic命令:
+```
+%whos : 查看已定义的变量
+%reset : 清除所有已定义的变量
+%reset_selective name  : 清除指定名字的变量
+
+esc键可以退出方法定义和ifelse结构
+dir(变量名) 可以查看所有可作用于该变量的函数
+
+```
