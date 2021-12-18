@@ -30,8 +30,6 @@ http://sce-re-sypos.uat1.rscloud.com/#/  uat
 
 http://erp.uat1.rscloud.com/ admin zendai123
 
-https://ivtsit2.sce-re.com/#/login  zhangfan/scePAY123
-
 https://bgerpsit2.sce-re.com/#/home
 https://bgerpuat.sce-re.com/#/home
 
@@ -85,6 +83,7 @@ SP001000935
 317c5f0c-5841-482b-afee-b57faaffb3ad
 http://sce-re-sypos.uat1.rscloud.com/api-sce-b/pay-b/member/memberCode?customerId=1000000788
 
+
 customerId=1000000788
 "memberCode": "16cec004-7895-43f3-8353-cede2fef3b61",
     "memberPhone": "13590283182",
@@ -93,4 +92,18 @@ customerId=1000000788
 
 SelectGoodActivity-》UnionSellConfirmActivity-》UnionOrderConfirmActivity-》UnionCashierActivity-》UnionSellResultActivity
 
-087896
+
+adb shell pm list packages -3
+//启动app
+adb shell am start -n "com.redstar.pospay.sce/com.redstar.pospay.ui.login.LoginActivity" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
+
+adb shell am start -n "com.redstar.pospay.jzh/io.dcloud.PandoraEntry" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
+
+
+无法执行yarn命令:
+管理员运行powershell
+set-ExecutionPolicy RemoteSigned 
+
+
+
+https://app.mockplus.cn/app/ITKItfjji16/develop/design/1vmMDkRZpn5jU

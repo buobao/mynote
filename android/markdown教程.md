@@ -12,7 +12,7 @@
 >>>可以到n级
 --- 
 ***
-![name](./imgs/for_sale.png "图片")
+![name](../imgs/for_sale.png "图片")
 [超链接](https://www.baidu.com "title")
 
 - 列表项 

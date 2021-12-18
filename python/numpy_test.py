@@ -37,13 +37,13 @@ from numpy.random import rand
 # size = rand(200) * 30
 # color = rand(200)
 # scatter(x, y, size, color)
-# colorbar()
+# colorbar()    #显示颜色条
 # =============================================================================
 
 # chapter3
-t = linspace(0, 2*pi, 50)
-x = sin(t)
-y = cos(t)
+# t = linspace(0, 2*pi, 50)
+# x = sin(t)
+# y = cos(t)
 
 #顺序展示两张图
 # =============================================================================
@@ -60,6 +60,84 @@ y = cos(t)
 # subplot(1, 2, 2)
 # plot(y)
 # =============================================================================
+
+# 标签展示
+# subplot(1, 2, 1)
+# plot(x,label="xline")
+# legend()   #加这句话才能显示标签
+# subplot(1, 2, 2)
+# plot(y,label="yline")
+# legend()
+
+# plot(x, sin(x))
+# xlabel('radians')
+# # 可以设置字体大小
+# ylabel('amplitude', fontsize='large')
+# title('Sin(x)')
+
+# clf()
+
+
+# 显示图片
+# from PIL import Image
+# im = Image.open(r"C:\Users\lebro\Pictures\Default.jpg")
+# im.show()
+
+# 直方图表示的是给定数组中不同item出现的次数
+#hist(rand(1000))
+# hist([1,1,1,2,1,3,3,4,4,4,4,2,2,2,2,5,6,7,8,3,4,2,5,9,9,9,4])
+# hist(["hello","jack","hello","lebron","tom","hello","mom","lebron"])
+
+
+# 向量化
+# def sinc(x):
+#     if x==0.0:
+#         return 1.0
+#     else:
+#         w = pi*x
+#         return sin(w)/w
+
+# print(sinc(1))
+
+# x = array([1,2,3])
+# vsinc = vectorize(sinc)
+# print(vsinc(x))
+# x = linspace(-5, 5,101)
+# plot(x,vsinc(x))
+
+import matplotlib.pyplot as plt
+from functools import partial
+
+fig = plt.figure()
+# 画两个坐标轴
+plt.axhline(y=0, c='black')
+plt.axvline(x=0, c='black')
+
+# 设置坐标轴的取值范围
+ax = plt.gca()
+ax.set_xlim(-2.5, 2.5)
+ax.set_ylim(-3, 4)
+
+arrow_vector = partial(plt.arrow, width=0.01, head_width=0.1, head_length=0.2, length_includes_head=True)
+
+arrow_vector(0, 0, 2, -1, color='g')
+arrow_vector(0, 0, -1, 2, color='c')
+arrow_vector(2, -1, -2, 4, color='b')
+arrow_vector(0, 0, 0, 3, width=0.05, color='r')
+
+plt.draw()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -57,3 +57,19 @@ esc键可以退出方法定义和ifelse结构
 dir(变量名) 可以查看所有可作用于该变量的函数
 
 ```
+
++ 加载一个图片
+```
+from imageio import imread
+img = imread(r"C:\Users\lebro\Pictures\Default.jpg")  #注意图片路径转义
+
+
+from PIL import Image
+im = Image.open('lena.png')
+im.show()
+
+im_array = np.array(im)
+
+I = Image.open('lena.png')
+I.save('new_lena.png')
+```
