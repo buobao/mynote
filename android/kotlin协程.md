@@ -1,6 +1,218 @@
 ####什么是协程
 >协程可以理解为是轻量级的线程，但是协程却不是线程，我们知道线程的实现有赖于操作系统对进程的实现。我们在创建线程的时候往往会调用操作系统的轻量级进程来实现线程的创建，线程的创建是一个比较消耗系统资源并且需要进入核心态才能创建的实体。一个进程可以包含多个线程，线程可以认为是操作系统的最小资源管理单元。而一个线程又可以包含多个协程。协程和线程的关系类似于线程和进程的关系，然而却又不完全一样。从编译语言角度讲，协程是通过语言特性实现的一种机制，或者称为语法糖，协程不被操作系统内核管理他可以在用户态被创建，并且创建的个数不受系统资源的限制，理论上我们可以创建无数个协程，所以创建协程的开销要远远小于创建线程。协程不以抢占的方式执行。协程可以被挂起，通过挂起的方式我们可以实现协程的切换。
-####协程和线程的区别
+> 协程通过kotlin编译器实现了回调，从代码角度讲，协程只是为开发者实现了回调的代码书写而已，协程本身不具备异步的能力。协程更多的是通过编译器的能力为开发者提供了自动书写回调的功能。对于开发者来说使用协程可以通过书写同步代码的方式来实现异步调用的能力。
+
+``` java
+      //协程的实现
+    GlobalScope.launch(Dispatchers.Main) {
+        val str1 = request1()
+        val str2 = request2(str1)
+        result.text = "$str1\n$str2"
+    }
+
+    private suspend fun request1():String {
+        delay(2000)
+        return "${System.currentTimeMillis()} request1 success.run on ${Thread.currentThread().name}"
+    }
+
+    private suspend fun request2(str:String):String {
+        delay(2000)
+        return "${System.currentTimeMillis()} request2 success.run on ${Thread.currentThread().name}"
+    }
+
+
+    //java代码实现
+    //通过翻译成java代码实现可以看出，编译器为我们实现了回调的代码书写
+    val callback = Continuation<String>(Dispatchers.Main){
+        Log.e("CoroutineActivity",it.getOrNull()?:"")
+    }
+    request1(callback)
+
+    public static final Object request1(Continuation preCallback) {
+        ContinuationImpl request1Callback;
+        if (!(preCallback instanceof ContinuationImpl) || (((ContinuationImpl) preCallback).label & Integer.MIN_VALUE) == 0) {
+            request1Callback = new ContinuationImpl(preCallback) {
+                @Override
+                Object invokeSuspend(@NonNull Object resumeResult) {
+                    this.result = resumeResult;
+                    this.label |= Integer.MIN_VALUE;
+                    Log.e("CoroutubeScene_complete","request1 resume.");
+                    return request1(this); //挂起
+                }
+            };
+        } else {
+            request1Callback = (ContinuationImpl) preCallback;
+        }
+
+        switch (request1Callback.label) {
+            case 0: {
+  //                Object delay = DelayKt.delay(1000, request1Callback);
+                Object delay = request2(request1Callback);
+                if (delay == IntrinsicsKt.getCOROUTINE_SUSPENDED()) {
+                    Log.e("CoroutubeScene_complete","request1 suspend.");
+                    return IntrinsicsKt.getCOROUTINE_SUSPENDED();
+                }
+            }
+        }
+        Log.e("CoroutubeScene_complete", "request1 completed");
+        return "result from request1 "+request1Callback.result;
+    }
+
+    public static final Object request2(Continuation preCallback) {
+        ContinuationImpl request2Callback;
+        if (!(preCallback instanceof ContinuationImpl) || (((ContinuationImpl) preCallback).label & Integer.MIN_VALUE) == 0) {
+            request2Callback = new ContinuationImpl(preCallback) {
+                @Override
+                Object invokeSuspend(@NonNull Object resumeResult) {
+                    this.result = resumeResult;
+                    this.label |= Integer.MIN_VALUE;
+                    Log.e("CoroutubeScene_complete","request2 resume.");
+                    return request2(this); //挂起
+                }
+            };
+        } else {
+            request2Callback = (ContinuationImpl) preCallback;
+        }
+
+        switch (request2Callback.label) {
+            case 0: {
+                Object delay = DelayKt.delay(1000, request2Callback);
+                if (delay == IntrinsicsKt.getCOROUTINE_SUSPENDED()) {
+                    Log.e("CoroutubeScene_complete","request2 suspend.");
+                    return IntrinsicsKt.getCOROUTINE_SUSPENDED();
+                }
+            }
+        }
+        Log.e("CoroutubeScene_complete", "request2 completed");
+        return "result from request2";
+    }
+
+    static abstract class ContinuationImpl<T> implements Continuation<T> {
+        private Continuation preCallback;
+        int label;
+        Object result;
+
+        public ContinuationImpl(Continuation preCallback) {
+            this.preCallback = preCallback;
+        }
+
+        @NonNull
+        @Override
+        public CoroutineContext getContext() {
+            return preCallback.getContext();
+        }
+
+        @Override
+        public void resumeWith(@NonNull Object resumeResult) {
+            Object o = invokeSuspend(resumeResult);  //恢复
+            if (o == IntrinsicsKt.getCOROUTINE_SUSPENDED()) {
+                return;
+            }
+
+            preCallback.resumeWith(o);
+        }
+
+        abstract Object invokeSuspend(@NotNull Object resumeResult);
+    }
+```
+
+#### GlobalScope、lifecycleScope、viewModelScope区别
+``` java
+//相对来说 GlobalScope不具备生命周期的感知能力，它创建的协程是process级别的，无法关联到宿主的什么周期。其余两个则可以
+
+//        lifecycleScope.launch {  }
+//        lifecycleScope.async {  }
+        //指当宿主组件至少为onCreate的时候才去执行协程
+        lifecycleScope.launchWhenCreated {
+            whenCreated {
+                //当宿主的生命周期为onCreate时执行 否则暂停
+            }
+
+            whenResumed {
+                //当宿主的生命周期为onResume时执行，否则暂停
+            }
+
+            whenStarted {
+                //当宿主的生命周去为onStart时执行，否则暂停
+            }
+        }
+
+        lifecycleScope.launch {
+            CoroutineScene1.getConfigContent()
+        }
+
+        //依次类推，还有以下两种:
+//        lifecycleScope.launchWhenStarted {  }
+//        lifecycleScope.launchWhenResumed {  }
+
+//        viewModeScope 这个是在viewmodel中使用的
+```
+
+#### 从线程到协程的转变过程
+``` java
+//测试
+fun getConfigContent() {
+        //使用线程直接获取
+        parseAssetsFile1("file1"){
+            Log.i("parseAssetsFile",it)
+        }
+
+        //问题：globalscope创建的协程是precess级别的 当组建被回收以后协程依然会执行
+//    GlobalScope.launch {  }
+        //问题：lifecycleScope只能在activity和fragment中使用
+//    lifecycleScope.launch
+
+        //启用协程避免书写回调
+        GlobalScope.launch {
+            val fileContent = GlobalScope.async { parseAssetsFile2("file2") }.await()  
+            //这里的书写不自然，还是存在lambda表达式的情况（类似回调）
+            Log.i("parseAssetsFile",fileContent)
+        }
+
+        //这种协程调用更自然
+        GlobalScope.launch {
+            val fileContent = parseAssetsFile3("file3")
+            Log.i("parseAssetsFile",fileContent)
+        }
+
+    }
+
+    /**
+     * 不使用协程
+     */
+    fun parseAssetsFile1(fileName:String,callback:(String)->Unit){
+        Thread{
+            Log.i("parseAssetsFile","loading file $fileName")
+            Thread.sleep(2000)
+            callback("assets file $fileName load success")
+        }.start()
+    }
+
+    /**
+     * 使用基本协程调用
+     */
+    suspend fun parseAssetsFile2(fileName:String):String {
+        Log.i("parseAssetsFile","loading file $fileName")
+        delay(2000)
+        return "assets file $fileName load success"
+    }
+
+    /**
+     * 通过这种方式使挂起函数调用更自然，不需要什么async和await
+     */
+    suspend fun parseAssetsFile3(fileName:String):String {
+        return suspendCancellableCoroutine {
+          //仍然是通过线程获取异步的能力
+            Thread{
+                Log.i("parseAssetsFile","loading file $fileName")
+                Thread.sleep(2000)
+                it.resumeWith(Result.success("assets file $fileName load success"))
+            }.start()
+        }
+    }
+```
+
+#### 协程和线程的区别
 - 协程和线程的创建区别
     - 线程的创建
     ```

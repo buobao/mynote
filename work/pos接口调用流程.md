@@ -1,0 +1,95 @@
+1. 基本接口
+    - 账号登录：user-b/b/login
+    - 登录验证（获取session等）：pay-b/homePage/validateUser
+    - 用户会员信息查询：pay-b/member/info
+    - 获取支付方式列表（未使用）：pay-b/trade/listPayWay
+    - 汇总查询-交易明细：pay-b/report/saleDetail
+    - 汇总查询-销售汇总：pay-b/report/saleTotalV2
+    - 汇总查询-收支明细：pay-b/report/paymentSum
+    - 订单明细：pay-b/report/detail/{orderNo}
+    - 获取优惠券列表（优惠券计算）：pay-b/member/getDiscountList
+    - 修改登录密码：pay-b/homePage/modifyPassword
+    - 帮助文档：pay-b/homePage/helpDoc
+    - 修改主管密码：pay-b/setting/modifySupervisorPwd
+    - 关闭主管密码：pay-b/setting/onOffSupervisorPwd
+    - 离线订单同步：pay-b/open/offlineOrder/sync
+    - 自营离线商品数据缓存：pay-b/self-operation/goodsInfoList
+    - 自营离线活动缓存：pay-b/self-operation/goods/activity/list
+    - 获取营业员列表：pay-b/b/shopUser/getUsers
+    - 优惠券编码查询：pay-b/member/getDiscountInfo
+    - 获取积分：pay-b/member/getPointDeductionAmount
+    - 联营获取积分：pay-b/joint-operation/joint/getPointDeductionAmount
+    - 离线补单数据同步：pay-b/self-operation/syncPos
+    - 自营获取支付方式列表：pay-b/self-operation/listPayWay
+    - 联营支付方式列表：pay-b/joint-trade/listPayWay
+
+
+2. 租赁pos销售、退款(按照调用顺序)
+    - 销售流程
+        - 离线状态判定：pay-b/homePage/heartbeat
+        - 获取商品实时价格：pay-b/self-operation/order/previewNew
+        - 创建销售单：pay-b/order/doOrder
+        - 订单支付：pay-b/trade/doPay
+        - 线上支付通知：pay-b/trade/notify
+        - 打印销售小票:pay-b/order/printDetail/{orderNo}
+    - 退款流程
+        - 可退列表查询：pay-b/order/refundList
+        - 主管密码验证：pay-b/order/supervisorValidate
+        - 退款单明细查询：pay-b/order/refundDetail/{orderNo}
+        - 创建退款单：pay-b/trade/doRefund
+        - 取消退款单：pay-b/order/cancelOrder/{orderNo}
+        - 退款支付通知：pay-b/trade/notify
+        - 打印退款小票：pay-b/order/printRefundDetail/{orderNo}/{refundOrderNo}
+
+
+3. 自营pos销售、退款
+    - 销售流程
+        - 离线状态判定：pay-b/homePage/heartbeat
+        - 扫一扫（商品条码、会员码）：pay-b/self-operation/memberOrGoodsInfoNew
+        - 商品列表：pay-b/self-operation/goods/listPages
+        - 创建销售单：pay-b/self-operation/order/doOrderNew
+        - 订单预览：pay-b/self-operation/order/previewNew
+        - 取消定单：pay-b/order/cancelOrder/{orderNo}
+        - 订单支付：pay-b/trade/doPay
+        - 线上支付通知：pay-b/trade/notify
+        - 打印销售小票:pay-b/order/printDetail/{orderNo}
+    - 退款流程
+        - 可退列表查询：pay-b/order/refundList
+        - 退款单明细查询：pay-b/order/refundDetail/{orderNo}
+        - 退款单预览：pay-b/self-operation/order/refund/preview
+        - 创建退款单：pay-b/self-operation/order/refund/create
+        - 退款中订单查看：pay-b/self-operation/order/refund/detail/{orderNo}
+        - 退款码验证：pay-b/self-operation/order/refund/code/verify/{orderNo}/{refundCode}
+        - 退款交易：pay-b/self-operation/order/refund/trade
+        - 取消退款单：pay-b/self-operation/order/refund/cancel/{orderNo}
+        - 退款支付通知：pay-b/trade/notify
+        - 打印退款小票：pay-b/order/printRefundDetail/{orderNo}/{refundOrderNo}
+
+4. 联营pos销售、退款
+    - 销售流程
+        - 商品列表：pay-b/joint-operation/originalGoods
+        - 扫一扫：pay-b/joint-operation/memberOrKeyInCode
+        - 订单预览：pay-b/joint-operation/order/preview
+        - 创建订单：pay-b/joint-operation/order/doOrder
+        - 取消订单：pay-b/joint-operation/order/cancelPayOrder
+        - 订单支付：pay-b/joint-trade/doPay
+        - 线上支付通知：pay-b/joint-trade/notify
+        - 小票打印：pay-b/joint-operation/printDetail/{orderNo}
+    - 退款流程
+        - 可退列表查询：pay-b/joint-operation/refundOrders
+        - 主管密码验证：pay-b/joint-operation/supervisorValidate
+        - 校验退款码（逻辑上已没有这一步，但是接口保留了，目前还在使用这个接口）：pay-b/joint-operation/order/jointRefund/code/verify/{orderNo}/{refundOrderNo}
+        - 可退订单详情：pay-b/joint-operation/order/jointRefund/detail/{orderNo}
+        - 退款商品明细：pay-b/joint-operation/order/jointRefund/detail/count
+        - 创建退款单：pay-b/joint-operation/order/jointRefund/create
+        - 取消退款：pay-b/joint-operation/order/jointRefund/cancel/{orderNo}/{refundNo}
+        - 以发起退款单详情：pay-b/joint-operation/order/jointRefund/detail/refundCount/{orderNo}/{refundCode}
+        - 退款交易：pay-b/joint-trade/order/jointRefund/trade
+        - 退款支付通知：/joint-trade/joint/notify
+        - 打印退款小票：pay-b/order/printRefundDetail/{orderNo}/{refundOrderNo}
+
+5. 销售补单
+    - 补单商品检查：pay-b/self-operation/order/checkRepair
+    - 创建销售补单:pay-b/self-operation/order/decreaseRepair
+    - 补单小票打印：pay-b/self-operation/Small/ticket
+    - 创建退货补单：pay-b/self-operation/order/addStockOrderRepair

@@ -114,3 +114,11 @@ preBuild.dependsOn generateSources
 ```shell
 adb shell am start -n "com.redstar.pospay.sce/com.redstar.pospay.ui.login.LoginActivity" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
 ```
+
++ 命令行启动模拟器：
+``` bat
+D:\androidsdk\emulator>emulator -list-avds
+Pixel_XL_API_28
+
+D:\androidsdk\emulator>emulator -avd Pixel_XL_API_28
+```
