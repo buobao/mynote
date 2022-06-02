@@ -65,6 +65,9 @@ adb shell logcat -v time > 文件路径
 adb tcpip 5555
 adb connect 设备ip
 
+git:
+git push --set-upstream origin dev  #指定推送到远程哪个分支，
+
 
 空格：&#160;
 窄空格：&#8201;
@@ -111,3 +114,98 @@ https://oa.redstarclouds.com/
 
 https://ssl.chinaredstar.com/dana-na/auth/url_default/welcome.cgi
 vpn:320683buobaoDQF2 H.diao.qingfeng
+
+http://10.2.140.20/sce/sce-pos-android/activity
+# git账户密码：320683buobaoDQF H.diao.qingfeng
+
+#通联sdk文档
+https://aipboss.allinpay.com/know/prddevhelp/main.php?pid=7#mid=65  
+
+# git fetch
+# git branch --set-upstream-to=origin/dev_phase_3 dev_phase_3
+
+
+101075
+1150050022
+
+1.需求文档
+2.银联调用磁条读取的sdk文档,不走银联收银台
+3.和中骏数字化平台交互的接口
+4.不和通联交互
+
+
+
+syntax error no DAV locking support on http://code.corp.rscloud.com/sce/sce-pos-android.git/ git-http-push failed failed to push some refs to 'http://code.corp.rscloud.com/sce/sce-pos-android.git'
+
+# 通联接口文档
+# https://aipboss.allinpay.com/know/prddevhelp/main.php?pid=7#mid=10
+# pos刷卡调用
+sdkLogin(object : ISDKModel.OnSDKLoginListener {
+            override fun onLoginSuccess() {
+                try {
+                    val cardSlotManager = CardSlotManager()
+                    val s1 = setOf(CardSlotTypeEnum.ICC1,
+                        CardSlotTypeEnum.ICC2,
+                        CardSlotTypeEnum.ICC3,
+                        CardSlotTypeEnum.SWIPE,
+                        CardSlotTypeEnum.RF)
+                    val s2 = setOf(CardTypeEnum.CPUCARD,
+                        CardTypeEnum.AT24CXX,
+                        CardTypeEnum.AT88SC102,
+                        CardTypeEnum.AT88SC1604,
+                        CardTypeEnum.AT88SC1608,
+                        CardTypeEnum.FALL_BACK,
+                        CardTypeEnum.FELICA,
+                        CardTypeEnum.INDUSTRYCARD,
+                        CardTypeEnum.M0CARD,
+                        CardTypeEnum.M1CARD,
+                        CardTypeEnum.MAG_CARD,
+                        CardTypeEnum.SLE44X2,
+                        CardTypeEnum.SLE44X8)
+//                    cardSlotManager.setConfig(
+//                        mapOf(CardSlotTypeEnum.SWIPE to null,
+//                        CardSlotTypeEnum.RF to null,
+//                        CardSlotTypeEnum.ICC1 to null,
+//                        CardSlotTypeEnum.ICC2 to null,
+//                        CardSlotTypeEnum.ICC3 to null))
+                    cardSlotManager.readCard(s1,s2,60,object:OnCardInfoListener{
+                            override fun onCardInfo(p0: Int, p1: CardInfoEntity?) {
+//                                Log.i("sdkPSAM","$p0")
+//                                Log.i("sdkPSAM",p1?.cardNo)
+                                Log.i("sdkPSAM",Gson().toJson(p1))
+                                cardSlotManager.stopRead()
+                                sdkLoginOut()
+                            }
+                        }, null)
+                    //mapOf<String,String>("ORDERNO" to "0","RANDOMVAL" to "0","AMOUNT" to "0")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    sdkLoginOut()
+                }
+            }
+
+            override fun onLoginError() {
+                ToastUtil.showToast(context, "登录设备失败，请重试")
+            }
+        })
+
+
+
+
+{"a":"MAG_CARD","b":"SWIPE","c":"","d":"NOT_PASS","e":"6222021001138075368\u003d26062208039991136","f":"PASS","g":"996222021001138075368\u003d1561560000000000001003803999010000026060\u003d000000000000\u003d000000000000\u003d00000000","h":"PASS"}
+
+
+
+
+                if (check_use_point.isChecked) {
+                    val commonDialog = CommonDialog(this, object : CommonDialog.OnCommonDialogListener {
+                        override fun onSureClick() {
+                            
+                        }
+                    })
+                    commonDialog.setDialogTitle("本次订单使用${point.toInt()}，抵扣${pointAmount.moneyFormat()}元，请确认。")
+                    commonDialog.setCancelable(true)
+                    commonDialog.show()
+                }
+
+git config --global http.sslVerify “false”

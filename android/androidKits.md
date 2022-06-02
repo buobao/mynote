@@ -122,3 +122,7 @@ Pixel_XL_API_28
 
 D:\androidsdk\emulator>emulator -avd Pixel_XL_API_28
 ```
+
++ 执行命令:gradle wrapper 找回gradlew gradlew.bat
+
++ gradle下载地址：https://services.gradle.org/distributions/

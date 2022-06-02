@@ -15,3 +15,8 @@ git remote add origin https://github.com/buobao/mynote.git
 git branch -M master
 git push -u origin master
 ```
+
++ 查询远程分支
+```
+git branch -r
+```
